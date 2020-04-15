@@ -31,6 +31,5 @@ $(document).ready(function() {
       $('#items').append(playerState.items[i] + ", ");
 
     }
-
-  })
+  });
 });
