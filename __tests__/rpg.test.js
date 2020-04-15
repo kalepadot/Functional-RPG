@@ -14,5 +14,5 @@ describe('storeState, changeState, initialGameState', () => {
     const giveJewel = givePlayerItem("Jewel of the forgotten temple");
     const finalState = player(giveJewel);
     expect(finalState.items[0]).toEqual("Jewel of the forgotten temple");
-  });
+  }); 
 });
