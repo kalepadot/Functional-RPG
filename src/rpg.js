@@ -21,16 +21,19 @@ acquireItem(item) => character.items.push(item);
   - taking potions
   - recieve potion from corpse (if statement enemy hp=0 +1 potion and random gold reward)
   - rewards gold baby
-
+   
 */
+
+//BUSINESS LOGIC
+
 export const storeState = (initialState) => {
   let currentState = initialState;
   return(stateChangeFunction) => {
     const newState = stateChangeFunction(currentState);
     currentState = {...newState};
     return newState;
-  }
-}
+  };
+};
 
 export const changeState = (prop) => {
   return (value) => {
@@ -38,8 +41,8 @@ export const changeState = (prop) => {
       ...state,
       [prop]: (state[prop] || 0) + value
     });
-  }
-}
+  };
+};
 
 export const addArrayItem = (prop) => {
   return (value) => {
@@ -47,17 +50,21 @@ export const addArrayItem = (prop) => {
       ...state,
       [prop]: [...state[prop], value]
     });
-  }
-}
+  };
+};
 
 // const game = storeState(initialGameState);
 
 
-// export const player = changeState("health");
-// const player = storeState({health: 100, potions: 2, items: []});
+const player = storeState({health: 100, gold: 20, potions: 2, items: []});
+export const playerHealth = changeState("health");
+const drinkPotion = playerHealth(20);
+const healedPlayer = player(drinkPotion);
 
-const givePlayerItem = addArrayItem("items");
-const giveJewel = givePlayerItem("Jewel of the forgotten temple");
+console.log(healedPlayer.health);
+
+// const givePlayerItem = addArrayItem("items");
+// const giveJewel = givePlayerItem("Jewel of the forgotten temple");
 // const recieveGold = givePlayerGold();
 
 
