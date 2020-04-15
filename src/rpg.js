@@ -19,7 +19,8 @@ acquireItem(item) => character.items.push(item);
   - damaging character
   - damaging enemy
   - taking potions
-  - rewards
+  - recieve potion from corpse (if statement enemy hp=0 +1 potion and random gold reward)
+  - rewards gold baby
 
 */
 export const storeState = (initialState) => {
@@ -40,15 +41,31 @@ export const changeState = (prop) => {
   }
 }
 
+export const addArrayItem = (prop) => {
+  return (value) => {
+    return (state) => ({
+      ...state,
+      [prop]: [...state[prop], value]
+    });
+  }
+}
+
 // const game = storeState(initialGameState);
 
 
-export const player = changeState("health");
-const player = storeState({health: 100, potions: 2});
-export const hurtPlayer = player("health")(-10);
-export const takePotion = player("health")(20);
-export const usePotion = player("potions")(-1);
-export const recievePotion = player("potions")(1);
+// export const player = changeState("health");
+// const player = storeState({health: 100, potions: 2, items: []});
+
+const givePlayerItem = addArrayItem("items");
+const giveJewel = givePlayerItem("Jewel of the forgotten temple");
+// const recieveGold = givePlayerGold();
+
+
+
+// export const hurtPlayer = player("health")(-10);
+// export const takePotion = player("health")(20);
+// export const usePotion = player("potions")(-1);
+// export const recievePotion = player("potions")(1);
 
 
 // console.log(game);
