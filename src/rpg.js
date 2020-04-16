@@ -53,6 +53,26 @@ export const addArrayItem = (prop) => {
   };
 };
 
+export const multiPropChangeState = (prop1) => {
+  return (value1) => {
+    return (prop2) => {
+      return (value2) => {
+        return (state) => ({
+          ...state,
+          [prop1]: (state[prop1] || 0) + value1,
+          [prop2]: (state[prop2] || 0) + value2
+        });
+      };
+    };
+  };
+};
+
+let gameObj = { playerHealth: 100, playerDamage: 20, enemyHealth: 50, enemyDamage: 10};
+
+export const fight = multiPropChangeState("playerHealth")(gameObj.enemyDamage)("enemyHealth")(gameObj.playerDamage);
+
+
+
 // const game = storeState(initialGameState);
 
 
