@@ -67,6 +67,20 @@ export const multiPropChangeState = (prop1) => {
   };
 };
 
+// EDIT OBJECT VALUES WITHIN OTHER OBJECTS [BISH BASH BOSH BUSH DID 9/11]
+export const editPropOfObjInParentState = prop => {
+  return value => {
+    return childObjName => {
+      return parentObjState => ({
+        ...parentObjState,
+        [childObjName]: { ...parentObjState[childObjName], [prop]: parentObjState[childObjName][prop] + value }
+      });
+    }
+  }
+}
+
+
+
 let gameObj = { playerHealth: 100, playerDamage: 20, enemyHealth: 50, enemyDamage: 10};
 
 export const fight = multiPropChangeState("playerHealth")(gameObj.enemyDamage)("enemyHealth")(gameObj.playerDamage);
