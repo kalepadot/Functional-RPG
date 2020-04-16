@@ -1,4 +1,4 @@
-import { storeState, changeState, addArrayItem, multiPropChangeState, rng } from '../src/rpg.js';
+import { storeState, changeState, addArrayItem, multiPropChangeState, rng, tryToDoAThing } from '../src/rpg.js';
 
 describe('storeState, changeState, initialGameState', () => {
   
@@ -42,4 +42,23 @@ describe('storeState, changeState, initialGameState', () => {
     const enemyState = enemy(enemyTakeDamage);
     expect(enemyState.health).toEqual(41);
   });
+
+  test('should edit the object value inside of a parent object', () => {
+    const game = storeState({
+      player: {
+        health: 100,
+        damage: 20,
+        potions: 2,
+        items: []
+      },
+      goblin: {
+        health: 40,
+        damage: 10
+      }
+    });
+    const goblinSwing = tryToDoAThing("health")(-10)("player");
+    const updatedGameState = game(goblinSwing);
+    expect(updatedGameState.player.health).toEqual(90);
+  })
+
 });
