@@ -72,10 +72,6 @@ let gameObj = { playerHealth: 100, playerDamage: 20, enemyHealth: 50, enemyDamag
 export const fight = multiPropChangeState("playerHealth")(gameObj.enemyDamage)("enemyHealth")(gameObj.playerDamage);
 
 
-
-// const game = storeState(initialGameState);
-
-
 const player = storeState({health: 100, gold: 20, potions: 2, items: []});
 export const playerHealth = changeState("health");
 const drinkPotion = playerHealth(20);
@@ -83,23 +79,11 @@ const healedPlayer = player(drinkPotion);
 
 console.log(healedPlayer.health);
 
-// const givePlayerItem = addArrayItem("items");
-// const giveJewel = givePlayerItem("Jewel of the forgotten temple");
-// const recieveGold = givePlayerGold();
 
+// generate random number(RNJESUS)
 
+export function rng(random, min, max) {
+  return Math.round(random * (max - min) + min);
+};
 
-// export const hurtPlayer = player("health")(-10);
-// export const takePotion = player("health")(20);
-// export const usePotion = player("potions")(-1);
-// export const recievePotion = player("potions")(1);
-
-
-// console.log(game);
-// console.log(hurtPlayer(game));
-
-
-// const hp = changeState("health");
-// const startingHp = hp(100);
-// const takeDamage = hp(-10);
-// const takePotion = hp(20);
+rng( Math.random(), 1, 20)
