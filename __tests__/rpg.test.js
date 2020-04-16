@@ -1,5 +1,4 @@
-import { storeState, changeState, addArrayItem, multiPropChangeState, fight } from '../src/rpg.js';
-
+import { storeState, changeState, addArrayItem, multiPropChangeState, rng, tryToDoAThing } from '../src/rpg.js';
 
 describe('storeState, changeState, initialGameState', () => {
   
@@ -36,4 +35,30 @@ describe('storeState, changeState, initialGameState', () => {
     expect(playerState.health).toEqual(90);
     expect(enemyState.health).toEqual(30);
   });
+
+  test('should randomize damage dealt and decrement health by randomized damage total', () =>{
+    const enemy = storeState({health: 50});
+    const enemyTakeDamage = changeState("health")(-(rng( 0.4, 1, 20)));
+    const enemyState = enemy(enemyTakeDamage);
+    expect(enemyState.health).toEqual(41);
+  });
+
+  test('should edit the object value inside of a parent object', () => {
+    const game = storeState({
+      player: {
+        health: 100,
+        damage: 20,
+        potions: 2,
+        items: []
+      },
+      goblin: {
+        health: 40,
+        damage: 10
+      }
+    });
+    const goblinSwing = tryToDoAThing("health")(-10)("player");
+    const updatedGameState = game(goblinSwing);
+    expect(updatedGameState.player.health).toEqual(90);
+  })
+
 });
