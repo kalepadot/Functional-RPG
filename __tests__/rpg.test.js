@@ -1,5 +1,4 @@
-import { storeState, changeState, addArrayItem, multiPropChangeState, fight } from '../src/rpg.js';
-
+import { storeState, changeState, addArrayItem, multiPropChangeState, rng } from '../src/rpg.js';
 
 describe('storeState, changeState, initialGameState', () => {
   
@@ -35,5 +34,12 @@ describe('storeState, changeState, initialGameState', () => {
     const enemyState = enemy(enemyTakeDamage);
     expect(playerState.health).toEqual(90);
     expect(enemyState.health).toEqual(30);
+  });
+
+  test('should randomize damage dealt and decrement health by randomized damage total', () =>{
+    const enemy = storeState({health: 50});
+    const enemyTakeDamage = changeState("health")(-(rng( 0.4, 1, 20)));
+    const enemyState = enemy(enemyTakeDamage);
+    expect(enemyState.health).toEqual(41);
   });
 });
